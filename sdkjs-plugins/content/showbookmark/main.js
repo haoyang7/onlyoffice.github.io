@@ -11,7 +11,7 @@
               if (aBookmarks) {
                 for (let i = 0; i < aBookmarks.length; i++) {
                   var oRange = oDocument.GetBookmarkRange(aBookmarks[i]);
-                  console.log("bookmark: " + i + ", range: " + JSON.stringify(oRange));
+                  console.log("bookmark: " + i + ", range:", oRange);
                 }
               }
             }
