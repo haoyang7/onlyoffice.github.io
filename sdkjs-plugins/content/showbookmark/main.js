@@ -31,9 +31,9 @@
             }, false, true, function (allBookmarksContent) {
                 console.log('ok', allBookmarksContent)
                 if (allBookmarksContent) {
-                    $('#bookmarkContent').val(allBookmarksContent);
+                    $('#bookmarkContent').text(allBookmarksContent);
                 } else {
-                    $('#bookmarkContent').val("文档中没有书签内容");
+                    $('#bookmarkContent').text("文档中没有书签内容");
                 }
             })
         });

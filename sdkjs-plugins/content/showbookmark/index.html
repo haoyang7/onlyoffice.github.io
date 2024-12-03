@@ -13,21 +13,34 @@
     <!-- 这里的 main.js 就是插件结构里面的 main.js -->
     <script src="main.js"></script>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;  /* 使页面内容垂直居中 */
+            background-color: #f4f4f4;
+        }
+
         #bookmarkContent {
             border: 2px solid #ccc;  /* 边框 */
             border-radius: 8px;  /* 圆角 */
-            padding: 12px;  /* 内边距 */
+            padding: 16px;  /* 内边距 */
             background-color: #f9f9f9;  /* 背景色 */
             color: #333;  /* 字体颜色 */
             font-size: 16px;  /* 字体大小 */
-            width: 100%;  /* 宽度占满容器 */
+            width: 90%;  /* 宽度占屏幕的90% */
+            max-width: 800px;  /* 最大宽度 800px */
             box-sizing: border-box;  /* 使padding和border不影响宽度 */
-            min-height: 150px;  /* 最小高度 */
+            min-height: 200px;  /* 最小高度 */
             white-space: pre-wrap;  /* 保持空格和换行符 */
             line-height: 1.6;  /* 行高 */
             letter-spacing: 0.5px;  /* 字间距 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 阴影 */
             overflow-y: auto;  /* 允许滚动 */
+            max-height: 400px;  /* 最大高度限制，避免内容过多时无限扩展 */
         }
 
         /* 聚焦时样式 */
