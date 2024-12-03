@@ -1,6 +1,4 @@
 (function (window, undefined) {
-    var outerWindow = window; // 保存外部的 window 对象
-
     window.Asc.plugin.init = function (initData) {
         var me = this
         // 确保在页面加载完成后执行
@@ -25,13 +23,6 @@
                                         allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到<br><br>";
                                     }
                                 }
-                                if (allBookmarksContent) {
-                                    console.log("书签内容：", allBookmarksContent);
-                                    $(outerWindow.document).find('#bookmarkContent').html(allBookmarksContent);
-                                } else {
-                                    console.log("文档中没有书签内容");
-                                    $(outerWindow.document).find('#bookmarkContent').html("文档中没有书签内容");
-                                }
                             }
                         }
                     } catch (error) {
@@ -40,6 +31,13 @@
                     return allBookmarksContent;
                 }, false, true, function (allBookmarksContent) {
                     console.log('ok', allBookmarksContent)
+                    if (allBookmarksContent) {
+                        console.log("书签内容：", allBookmarksContent);
+                        $('#bookmarkContent').html(allBookmarksContent);
+                    } else {
+                        console.log("文档中没有书签内容");
+                        $('#bookmarkContent').html("文档中没有书签内容");
+                    }
                 })
             })
         });
