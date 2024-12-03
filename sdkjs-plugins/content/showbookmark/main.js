@@ -11,7 +11,8 @@
               var aBookmarks = oDocument.GetAllBookmarksNames();
               if (aBookmarks && aBookmarks.length > 0) {
                 for (let i = 0; i < aBookmarks.length; i++) {
-                  var oRange = oDocument.GetBookmarkRange(aBookmarks[i]);
+                  var bookmarkName = aBookmarks[i];
+                  var oRange = oDocument.GetBookmarkRange(bookmarkName);
                   // 如果范围有效，则获取书签内容
                   if (oRange) {
                     var bookmarkText = oRange.GetText();
