@@ -1,43 +1,49 @@
 (function (window, undefined) {
     window.Asc.plugin.init = function (initData) {
         var me = this
-        $('#showBookmark').click(function () {
-            var allBookmarksContent = ""; // 存储所有书签的内容
-            // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
-            me.callCommand(function () {
-                try {
-                    var oDocument = Api.GetDocument();
-                    if (oDocument) {
-                        var aBookmarks = oDocument.GetAllBookmarksNames();
-                        if (aBookmarks && aBookmarks.length > 0) {
-                            for (let i = 0; i < aBookmarks.length; i++) {
-                                var bookmarkName = aBookmarks[i];
-                                var oRange = oDocument.GetBookmarkRange(bookmarkName);
-                                // 如果范围有效，则获取书签内容
-                                if (oRange) {
-                                    var bookmarkText = oRange.GetText();
-                                    allBookmarksContent += "书签名称: " + bookmarkName + "<br>书签内容: " + bookmarkText + "<br><br>"; // 将每个书签的内容加入到字符串中
+        // 确保在页面加载完成后执行
+        $(document).ready(function() {
+            $('#showBookmark').click(function () {
+                console.log("window:", window)
+                var allBookmarksContent = ""; // 存储所有书签的内容
+                // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
+                me.callCommand(function () {
+                    try {
+                        var oDocument = Api.GetDocument();
+                        if (oDocument) {
+                            var aBookmarks = oDocument.GetAllBookmarksNames();
+                            if (aBookmarks && aBookmarks.length > 0) {
+                                for (let i = 0; i < aBookmarks.length; i++) {
+                                    var bookmarkName = aBookmarks[i];
+                                    var oRange = oDocument.GetBookmarkRange(bookmarkName);
+                                    // 如果范围有效，则获取书签内容
+                                    if (oRange) {
+                                        var bookmarkText = oRange.GetText();
+                                        allBookmarksContent += "书签名称: " + bookmarkName + "<br>书签内容: " + bookmarkText + "<br><br>"; // 将每个书签的内容加入到字符串中
+                                    } else {
+                                        allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到<br><br>";
+                                    }
+                                }
+                                if (allBookmarksContent) {
+                                    console.log("书签内容：", allBookmarksContent);
                                 } else {
-                                    allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到<br><br>";
+                                    console.log("文档中没有书签内容");
                                 }
                             }
-
                         }
+                    } catch (error) {
+                        console.error(error)
                     }
-                } catch (error) {
-                    console.error(error)
-                }
-            }, false, true, function () {
-                console.log('ok')
-                if (allBookmarksContent) {
-                    console.log("书签内容：", allBookmarksContent); // 一次性弹出所有书签内容
-                    $("#bookmarkContent").html(allBookmarksContent);
-                } else {
-                    console.log("文档中没有书签内容");
-                    $("#bookmarkContent").html("文档中没有书签内容");
-                }
+                }, false, true, function () {
+                    console.log('ok')
+                    if (allBookmarksContent) {
+                        $("#bookmarkContent").html(allBookmarksContent);
+                    } else {
+                        $("#bookmarkContent").html("文档中没有书签内容");
+                    }
+                })
             })
-        })
+        });
 
         // 在插件 iframe 之外释放鼠标按钮时调用的函数
         window.Asc.plugin.onExternalMouseUp = function () {
