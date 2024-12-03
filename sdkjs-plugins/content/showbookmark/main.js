@@ -2,12 +2,11 @@
     window.Asc.plugin.init = function (initData) {
         var me = this
         // 确保在页面加载完成后执行
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#showBookmark').click(function () {
-                console.log("window:", window)
-                var allBookmarksContent = ""; // 存储所有书签的内容
                 // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
                 me.callCommand(function () {
+                    var allBookmarksContent = ""; // 存储所有书签的内容
                     try {
                         var oDocument = Api.GetDocument();
                         if (oDocument) {
@@ -26,8 +25,10 @@
                                 }
                                 if (allBookmarksContent) {
                                     console.log("书签内容：", allBookmarksContent);
+                                    $(window.document).find('#bookmarkContent').html(allBookmarksContent);
                                 } else {
                                     console.log("文档中没有书签内容");
+                                    $(window.document).find('#bookmarkContent').html("文档中没有书签内容");
                                 }
                             }
                         }
@@ -36,11 +37,6 @@
                     }
                 }, false, true, function () {
                     console.log('ok')
-                    if (allBookmarksContent) {
-                        $("#bookmarkContent").html(allBookmarksContent);
-                    } else {
-                        $("#bookmarkContent").html("文档中没有书签内容");
-                    }
                 })
             })
         });
