@@ -21,13 +21,18 @@
                                     allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到<br><br>";
                                 }
                             }
+                            // 通过 iframe 的 id 或其他方式访问 iframe
+                            var iframe = document.getElementById('iframe_asc.{11700c35-1fdb-4e37-9edb-b31637139601}');  // 获取 iframe
+                            var iframeDocument = iframe.contentWindow.document;  // 获取 iframe 的 document
+                            // 在 iframe 内部查找元素
+                            var bookmarkContent = $(iframeDocument).find('#bookmarkContent');
+                            console.log(bookmarkContent.length);  // 应该输出 1，表示元素存在
                             if (allBookmarksContent) {
                                 console.log("书签内容：", allBookmarksContent); // 一次性弹出所有书签内容
-                                console.log($("#bookmarkContent").length);
-                                $("#bookmarkContent").html(allBookmarksContent);
+                                $("#bookmarkContent", iframeDocument).html(allBookmarksContent);
                             } else {
                                 console.log("文档中没有书签内容");
-                                $("#bookmarkContent").html("文档中没有书签内容");
+                                $("#bookmarkContent", iframeDocument).html("文档中没有书签内容");
                             }
                         }
                     }
