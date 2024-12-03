@@ -37,8 +37,9 @@
                     } catch (error) {
                         console.error(error)
                     }
-                }, false, true, function () {
-                    console.log('ok')
+                    return allBookmarksContent;
+                }, false, true, function (allBookmarksContent) {
+                    console.log('ok', allBookmarksContent)
                 })
             })
         });
