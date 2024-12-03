@@ -3,40 +3,38 @@
         var me = this
         // 确保在页面加载完成后执行
         $(document).ready(function () {
-            $('#showBookmark').click(function () {
-                // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
-                me.callCommand(function () {
-                    var allBookmarksContent = ""; // 存储所有书签的内容
-                    try {
-                        var oDocument = Api.GetDocument();
-                        if (oDocument) {
-                            var aBookmarks = oDocument.GetAllBookmarksNames();
-                            if (aBookmarks && aBookmarks.length > 0) {
-                                for (let i = 0; i < aBookmarks.length; i++) {
-                                    var bookmarkName = aBookmarks[i];
-                                    var oRange = oDocument.GetBookmarkRange(bookmarkName);
-                                    // 如果范围有效，则获取书签内容
-                                    if (oRange) {
-                                        var bookmarkText = oRange.GetText();
-                                        allBookmarksContent += "书签名称: " + bookmarkName + "<br>书签内容: " + bookmarkText + "<br><br>"; // 将每个书签的内容加入到字符串中
-                                    } else {
-                                        allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到<br><br>";
-                                    }
+            // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
+            me.callCommand(function () {
+                var allBookmarksContent = ""; // 存储所有书签的内容
+                try {
+                    var oDocument = Api.GetDocument();
+                    if (oDocument) {
+                        var aBookmarks = oDocument.GetAllBookmarksNames();
+                        if (aBookmarks && aBookmarks.length > 0) {
+                            for (let i = 0; i < aBookmarks.length; i++) {
+                                var bookmarkName = aBookmarks[i];
+                                var oRange = oDocument.GetBookmarkRange(bookmarkName);
+                                // 如果范围有效，则获取书签内容
+                                if (oRange) {
+                                    var bookmarkText = oRange.GetText();
+                                    allBookmarksContent += "书签名称: " + bookmarkName + "\n书签内容: " + bookmarkText + "\n\n"; // 将每个书签的内容加入到字符串中
+                                } else {
+                                    allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到\n\n";
                                 }
                             }
                         }
-                    } catch (error) {
-                        console.error(error)
                     }
-                    return allBookmarksContent;
-                }, false, true, function (allBookmarksContent) {
-                    console.log('ok', allBookmarksContent)
-                    if (allBookmarksContent) {
-                        $('#bookmarkContent').html(allBookmarksContent);
-                    } else {
-                        $('#bookmarkContent').html("文档中没有书签内容");
-                    }
-                })
+                } catch (error) {
+                    console.error(error)
+                }
+                return allBookmarksContent;
+            }, false, true, function (allBookmarksContent) {
+                console.log('ok', allBookmarksContent)
+                if (allBookmarksContent) {
+                    $('#bookmarkContent').html(allBookmarksContent);
+                } else {
+                    $('#bookmarkContent').html("文档中没有书签内容");
+                }
             })
         });
 
