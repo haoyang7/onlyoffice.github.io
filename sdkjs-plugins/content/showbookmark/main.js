@@ -3,6 +3,10 @@
 
     }
 
+    function sendPluginMessage(message) {
+        window.Asc.plugin.sendToPlugin("onWindowMessage", message);
+    }
+
     // 确保在页面加载完成后执行
     $(document).ready(function () {
         $('#showBookmark').click(function () {
@@ -27,10 +31,7 @@
                             }
                             if (allBookmarksContent) {
                                 console.log("书签内容：", allBookmarksContent);
-                                $(window.document).find('#bookmarkContent').html(allBookmarksContent);
-                            } else {
-                                console.log("文档中没有书签内容");
-                                $(window.document).find('#bookmarkContent').html("文档中没有书签内容");
+                                sendPluginMessage({allBookmarksContent: allBookmarksContent});
                             }
                         }
                     }
