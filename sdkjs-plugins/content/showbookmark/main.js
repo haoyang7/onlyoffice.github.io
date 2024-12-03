@@ -16,12 +16,13 @@
                                 // 如果范围有效，则获取书签内容
                                 if (oRange) {
                                     var bookmarkText = oRange.GetText();
-                                    allBookmarksContent += "书签名称: " + bookmarkName + "\n书签内容: " + bookmarkText + "\n\n"; // 将每个书签的内容加入到字符串中
+                                    allBookmarksContent += "书签名称: " + bookmarkName + "<br>书签内容: " + bookmarkText + "<br><br>"; // 将每个书签的内容加入到字符串中
                                 } else {
-                                    allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到\n\n";
+                                    allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到<br><br>";
                                 }
                             }
                             if (allBookmarksContent) {
+                                console.log("书签内容：", allBookmarksContent); // 一次性弹出所有书签内容
                                 $("#bookmarkContent").html(allBookmarksContent);
                             } else {
                                 console.log("文档中没有书签内容");
