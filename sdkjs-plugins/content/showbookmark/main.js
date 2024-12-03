@@ -32,10 +32,8 @@
                 }, false, true, function (allBookmarksContent) {
                     console.log('ok', allBookmarksContent)
                     if (allBookmarksContent) {
-                        console.log("书签内容：", allBookmarksContent);
                         $('#bookmarkContent').html(allBookmarksContent);
                     } else {
-                        console.log("文档中没有书签内容");
                         $('#bookmarkContent').html("文档中没有书签内容");
                     }
                 })
