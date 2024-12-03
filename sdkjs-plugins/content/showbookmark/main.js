@@ -6,7 +6,7 @@
         $(document).ready(function () {
             $('#showBookmark').click(function () {
                 // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
-                me.callCommand(function () {
+                me.callCommand(function (window) {
                     console.log("callCommand window", window)
                     var allBookmarksContent = ""; // 存储所有书签的内容
                     try {
@@ -27,6 +27,7 @@
                                 }
                                 if (allBookmarksContent) {
                                     console.log("书签内容：", allBookmarksContent);
+                                    // window.opener.postMessage({ type: "bookmarkContent", content: allBookmarksContent }, "*");
                                     $(window.document).find('#bookmarkContent').html(allBookmarksContent);
                                 } else {
                                     console.log("文档中没有书签内容");
@@ -42,6 +43,13 @@
                 })
             })
         });
+
+        // window.addEventListener("message", function(event) {
+        //     if (event.data.type === "bookmarkContent") {
+        //         var content = event.data.content;
+        //         console.log(content); // 这里可以处理或显示接收到的书签内容
+        //     }
+        // }, false);
 
         // 在插件 iframe 之外释放鼠标按钮时调用的函数
         window.Asc.plugin.onExternalMouseUp = function () {
