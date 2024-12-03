@@ -6,12 +6,24 @@
         me.callCommand(function() {
           try {
             var oDocument = Api.GetDocument();
+            var allBookmarksContent = ""; // 存储所有书签的内容
             if (oDocument) {
               var aBookmarks = oDocument.GetAllBookmarksNames();
-              if (aBookmarks) {
+              if (aBookmarks && aBookmarks.length > 0) {
                 for (let i = 0; i < aBookmarks.length; i++) {
                   var oRange = oDocument.GetBookmarkRange(aBookmarks[i]);
-                  console.log("bookmark: " + i + ", range:", oRange);
+                  // 如果范围有效，则获取书签内容
+                  if (oRange) {
+                    var bookmarkText = oRange.GetText();
+                    allBookmarksContent += "书签名称: " + bookmarkName + "\n书签内容: " + bookmarkText + "\n\n"; // 将每个书签的内容加入到字符串中
+                  } else {
+                    allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到\n\n";
+                  }
+                }
+                if (allBookmarksContent) {
+                  alert(allBookmarksContent); // 一次性弹出所有书签内容
+                } else {
+                  alert("文档中没有书签内容");
                 }
               }
             }
