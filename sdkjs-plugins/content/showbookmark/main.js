@@ -29,14 +29,14 @@
                 }
             }, false, true, function () {
                 console.log('ok')
+                if (allBookmarksContent) {
+                    console.log("书签内容：", allBookmarksContent); // 一次性弹出所有书签内容
+                    $("#bookmarkContent").html(allBookmarksContent);
+                } else {
+                    console.log("文档中没有书签内容");
+                    $("#bookmarkContent").html("文档中没有书签内容");
+                }
             })
-            if (allBookmarksContent) {
-                console.log("书签内容：", allBookmarksContent); // 一次性弹出所有书签内容
-                $("#bookmarkContent").html(allBookmarksContent);
-            } else {
-                console.log("文档中没有书签内容");
-                $("#bookmarkContent").html("文档中没有书签内容");
-            }
         })
 
         // 在插件 iframe 之外释放鼠标按钮时调用的函数
