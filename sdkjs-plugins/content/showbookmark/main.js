@@ -1,8 +1,20 @@
 (function (window, undefined) {
+
+    // 显示loading
+    function showLoading() {
+        $('#loading').addClass('show');  // 显示 loading
+    }
+
+    // 隐藏loading
+    function hideLoading() {
+        $('#loading').removeClass('show');  // 隐藏 loading
+    }
+
     window.Asc.plugin.init = function (initData) {
         var me = this
         // 确保在页面加载完成后执行
         $(document).ready(function () {
+            showLoading();
             // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
             me.callCommand(function () {
                 var allBookmarksContent = ""; // 存储所有书签的内容
@@ -29,6 +41,7 @@
                 }
                 return allBookmarksContent;
             }, false, true, function (allBookmarksContent) {
+                hideLoading();
                 console.log('ok', allBookmarksContent)
                 if (allBookmarksContent) {
                     $('#bookmarkContent').text(allBookmarksContent);
