@@ -23,6 +23,7 @@
                             }
                             if (allBookmarksContent) {
                                 console.log("书签内容：", allBookmarksContent); // 一次性弹出所有书签内容
+                                console.log($("#bookmarkContent").length);
                                 $("#bookmarkContent").html(allBookmarksContent);
                             } else {
                                 console.log("文档中没有书签内容");
