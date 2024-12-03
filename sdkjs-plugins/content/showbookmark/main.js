@@ -3,10 +3,6 @@
 
     }
 
-    function sendPluginMessage(message) {
-        window.Asc.plugin.sendToPlugin("onWindowMessage", message);
-    }
-
     // 确保在页面加载完成后执行
     $(document).ready(function () {
         $('#showBookmark').click(function () {
@@ -31,7 +27,7 @@
                             }
                             if (allBookmarksContent) {
                                 console.log("书签内容：", allBookmarksContent);
-                                sendPluginMessage({allBookmarksContent: allBookmarksContent});
+                                window.Asc.plugin.sendToPlugin("onWindowMessage", {allBookmarksContent: allBookmarksContent});
                             }
                         }
                     }
