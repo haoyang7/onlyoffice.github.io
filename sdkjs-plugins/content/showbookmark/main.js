@@ -1,11 +1,13 @@
 (function (window, undefined) {
     window.Asc.plugin.init = function (initData) {
         var me = this
+        console.log("window", window)
         // 确保在页面加载完成后执行
         $(document).ready(function () {
             $('#showBookmark').click(function () {
                 // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
                 me.callCommand(function () {
+                    console.log("callCommand window", window)
                     var allBookmarksContent = ""; // 存储所有书签的内容
                     try {
                         var oDocument = Api.GetDocument();
