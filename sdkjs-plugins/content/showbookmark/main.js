@@ -22,9 +22,9 @@
                   }
                 }
                 if (allBookmarksContent) {
-                  alert(allBookmarksContent); // 一次性弹出所有书签内容
+                  console.log(allBookmarksContent); // 一次性弹出所有书签内容
                 } else {
-                  alert("文档中没有书签内容");
+                  console.log("文档中没有书签内容");
                 }
               }
             }
