@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title></title>
     <!-- 可以引入外部的 js 脚本 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- 这个是插件 js，基本是必须要引入的 -->
     <script src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
     <!-- 这里的 main.js 就是插件结构里面的 main.js -->
     <script src="main.js"></script>
-  </head>
+    <style>
+        #bookmarkContent {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
 
-  <body>
-    <!-- 这里是 html 区域，H5 的标签都可以在这里使用，设置 id 然后到 main.js 里面绑定事件 -->
-    <!-- 操作 -->
-    <button id="showBookmark">显示书签</button>
-  </body>
+<body>
+<!-- 这里是 html 区域，H5 的标签都可以在这里使用，设置 id 然后到 main.js 里面绑定事件 -->
+<!-- 操作 -->
+<button id="showBookmark">显示书签</button>
+<!-- 用于显示书签内容的 div -->
+<div id="bookmarkContent"></div>
+
+</body>
 </html>
