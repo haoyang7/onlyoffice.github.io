@@ -1,0 +1,26 @@
+{
+    "name": "字体替换",
+    "guid": "asc.{11700c35-1fdb-4e37-9edb-b31637139601}",
+    "variations": [
+        {
+            "description": "数字字体替换",
+            "url": "index.html",
+            "icons": [
+                "icon.png",
+                "icon@2x.png"
+            ],
+            "isViewer": false,
+            "EditorsSupport": [
+                "word"
+            ],
+            "isVisual": true,
+            "isModal": false,
+            "initDataType": "none",
+            "initData": "",
+            "buttons": [],
+            "events": [
+                "onClick"
+            ]
+        }
+    ]
+}
