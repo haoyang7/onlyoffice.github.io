@@ -19,42 +19,62 @@
             me.callCommand(function () {
                 var allBookmarksContent = new Map(); // 存储所有书签的内容
                 try {
+                    console.log('Calling Api.GetDocument()');
                     var oDocument = Api.GetDocument();
                     if (oDocument) {
+                        console.log('Document fetched successfully:', oDocument);
                         var aBookmarks = oDocument.GetAllBookmarksNames();
+                        console.log('Fetched bookmarks:', aBookmarks); // 打印获取到的书签名称数组
+
                         if (aBookmarks && aBookmarks.length > 0) {
+                            console.log('Found bookmarks:', aBookmarks.length);
                             for (let i = 0; i < aBookmarks.length; i++) {
                                 var bookmarkName = aBookmarks[i];
+                                console.log('Processing bookmark:', bookmarkName);
                                 var oRange = oDocument.GetBookmarkRange(bookmarkName);
+                                console.log('Bookmark range for ' + bookmarkName + ':', oRange);
+
                                 // 如果范围有效，则获取书签内容
                                 if (oRange) {
                                     var bookmarkText = oRange.GetText();
+                                    console.log('Bookmark text for ' + bookmarkName + ':', bookmarkText);
                                     allBookmarksContent.set(bookmarkName, bookmarkText);
                                 } else {
+                                    console.log('No range found for bookmark:', bookmarkName);
                                     allBookmarksContent.set(bookmarkName, "");
                                 }
                             }
+                        } else {
+                            console.log('No bookmarks found.');
                         }
+                    } else {
+                        console.log('Failed to fetch document.');
                     }
                 } catch (error) {
-                    console.error(error)
+                    console.error('Error in fetching document or processing bookmarks:', error);
                 }
                 return allBookmarksContent;
             }, false, true, function (allBookmarksContent) {
                 hideLoading();
-                console.log('ok', allBookmarksContent)
+                console.log('Callback received. allBookmarksContent:', allBookmarksContent);
+
                 var content = "";
                 if (allBookmarksContent && allBookmarksContent.size > 0) {
+                    console.log('There are bookmarks. Preparing content...');
                     var contentArray = [];
                     for (var [key, value] of allBookmarksContent) {
+                        console.log('Adding bookmark to content: ', key, value);
                         contentArray.push("书签名称: " + key + "\n书签内容: " + value + "\n");
                     }
                     content = contentArray.join('');
                 } else {
+                    console.log('No bookmarks content available.');
                     content = "文档中没有书签内容";
                 }
+
+                console.log('Final content:', content);
                 $('#bookmarkContent').text(content);
-            })
+            });
         });
 
         // 在插件 iframe 之外释放鼠标按钮时调用的函数
