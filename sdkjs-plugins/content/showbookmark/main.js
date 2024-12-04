@@ -17,7 +17,7 @@
             showLoading();
             // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
             me.callCommand(function () {
-                var allBookmarksContent = new Map(); // 存储所有书签的内容
+                var allBookmarksContent = {}; // 使用普通对象替换 Map
                 try {
                     console.log('Calling Api.GetDocument()');
                     var oDocument = Api.GetDocument();
@@ -38,10 +38,10 @@
                                 if (oRange) {
                                     var bookmarkText = oRange.GetText();
                                     console.log('Bookmark text for ' + bookmarkName + ':', bookmarkText);
-                                    allBookmarksContent.set(bookmarkName, bookmarkText);
+                                    allBookmarksContent[bookmarkName] = bookmarkText; // 使用对象的方式存储键值对
                                 } else {
                                     console.log('No range found for bookmark:', bookmarkName);
-                                    allBookmarksContent.set(bookmarkName, "");
+                                    allBookmarksContent[bookmarkName] = ""; // 设置为空字符串
                                 }
                             }
                         } else {
@@ -53,22 +53,28 @@
                 } catch (error) {
                     console.error('Error in fetching document or processing bookmarks:', error);
                 }
+
+                // 转换为 JSON 字符串返回
                 var ret = JSON.stringify(allBookmarksContent);
                 console.log('callCommand return:', ret);
                 return ret;
             }, false, true, function (res) {
                 hideLoading();
                 console.log('Callback received. res:', res);
+
+                // 解析返回的 JSON 字符串为普通对象
                 var allBookmarksContent = JSON.parse(res);
                 console.log('Callback allBookmarksContent:', allBookmarksContent);
 
                 var content = "";
-                if (allBookmarksContent && allBookmarksContent.size > 0) {
+                if (allBookmarksContent && Object.keys(allBookmarksContent).length > 0) { // 使用 Object.keys 检查对象是否有内容
                     console.log('There are bookmarks. Preparing content...');
                     var contentArray = [];
-                    for (var [key, value] of allBookmarksContent) {
-                        console.log('Adding bookmark to content: ', key, value);
-                        contentArray.push("书签名称: " + key + "\n书签内容: " + value + "\n");
+                    for (var key in allBookmarksContent) { // 使用 for-in 遍历对象的属性
+                        if (allBookmarksContent.hasOwnProperty(key)) {
+                            console.log('Adding bookmark to content: ', key, allBookmarksContent[key]);
+                            contentArray.push("书签名称: " + key + "\n书签内容: " + allBookmarksContent[key] + "\n");
+                        }
                     }
                     content = contentArray.join('');
                 } else {

@@ -7,7 +7,7 @@
             "url": "index.html",
             "icons": [
                 "resources/icon.png",
-                "res@2xources/icon.png"
+                "resources/icon@2x.png"
             ],
             "isViewer": false,
             "EditorsSupport": [
