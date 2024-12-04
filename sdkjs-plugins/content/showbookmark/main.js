@@ -53,6 +53,7 @@
                 } catch (error) {
                     console.error('Error in fetching document or processing bookmarks:', error);
                 }
+                console.log('callCommand return:', allBookmarksContent);
                 return allBookmarksContent;
             }, false, true, function (allBookmarksContent) {
                 hideLoading();
