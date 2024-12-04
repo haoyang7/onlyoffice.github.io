@@ -43,15 +43,17 @@
             }, false, true, function (allBookmarksContent) {
                 hideLoading();
                 console.log('ok', allBookmarksContent)
+                var content = "";
                 if (allBookmarksContent && allBookmarksContent.size > 0) {
-                    var content= "";
+                    var contentArray = [];
                     for (var [key, value] of allBookmarksContent) {
-                        content += "书签名称: " + key + "\n书签内容: " + value + "\n"; // 将每个书签的内容加入到字符串中
+                        contentArray.push("书签名称: " + key + "\n书签内容: " + value + "\n");
                     }
-                    $('#bookmarkContent').text(content);
+                    content = contentArray.join('');
                 } else {
-                    $('#bookmarkContent').text("文档中没有书签内容");
+                    content = "文档中没有书签内容";
                 }
+                $('#bookmarkContent').text(content);
             })
         });
 
