@@ -6,8 +6,8 @@
             "description": "显示书签内容",
             "url": "index.html",
             "icons": [
-                "icon.png",
-                "icon@2x.png"
+                "resources/icon.png",
+                "res@2xources/icon.png"
             ],
             "isViewer": false,
             "EditorsSupport": [

@@ -53,14 +53,13 @@
                 } catch (error) {
                     console.error('Error in fetching document or processing bookmarks:', error);
                 }
-                var ret = JSON.stringify({data: allBookmarksContent});
+                var ret = JSON.stringify(allBookmarksContent);
                 console.log('callCommand return:', ret);
                 return ret;
             }, false, true, function (res) {
                 hideLoading();
                 console.log('Callback received. res:', res);
-                var ret = JSON.parse(res);
-                var allBookmarksContent = ret.data;
+                var allBookmarksContent = JSON.parse(res);
                 console.log('Callback allBookmarksContent:', allBookmarksContent);
 
                 var content = "";
