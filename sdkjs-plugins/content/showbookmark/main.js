@@ -17,7 +17,7 @@
             showLoading();
             // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
             me.callCommand(function () {
-                var allBookmarksContent = ""; // 存储所有书签的内容
+                var allBookmarksContent = new Map(); // 存储所有书签的内容
                 try {
                     var oDocument = Api.GetDocument();
                     if (oDocument) {
@@ -29,9 +29,9 @@
                                 // 如果范围有效，则获取书签内容
                                 if (oRange) {
                                     var bookmarkText = oRange.GetText();
-                                    allBookmarksContent += "书签名称: " + bookmarkName + "\n书签内容: " + bookmarkText + "\n\n"; // 将每个书签的内容加入到字符串中
+                                    allBookmarksContent.set(bookmarkName, bookmarkText);
                                 } else {
-                                    allBookmarksContent += "书签名称: " + bookmarkName + " 的范围未找到\n\n";
+                                    allBookmarksContent.set(bookmarkName, "");
                                 }
                             }
                         }
@@ -43,8 +43,12 @@
             }, false, true, function (allBookmarksContent) {
                 hideLoading();
                 console.log('ok', allBookmarksContent)
-                if (allBookmarksContent) {
-                    $('#bookmarkContent').text(allBookmarksContent);
+                if (allBookmarksContent && allBookmarksContent.size > 0) {
+                    var content= "";
+                    for (var [key, value] of allBookmarksContent) {
+                        content += "书签名称: " + key + "\n书签内容: " + value + "\n"; // 将每个书签的内容加入到字符串中
+                    }
+                    $('#bookmarkContent').text(content);
                 } else {
                     $('#bookmarkContent').text("文档中没有书签内容");
                 }
