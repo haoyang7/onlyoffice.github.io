@@ -53,11 +53,15 @@
                 } catch (error) {
                     console.error('Error in fetching document or processing bookmarks:', error);
                 }
-                console.log('callCommand return:', allBookmarksContent);
-                return allBookmarksContent;
-            }, false, true, function (allBookmarksContent) {
+                var ret = JSON.stringify({data: allBookmarksContent});
+                console.log('callCommand return:', ret);
+                return ret;
+            }, false, true, function (res) {
                 hideLoading();
-                console.log('Callback received. allBookmarksContent:', allBookmarksContent);
+                console.log('Callback received. res:', res);
+                var ret = JSON.parse(res);
+                var allBookmarksContent = ret.data;
+                console.log('Callback allBookmarksContent:', allBookmarksContent);
 
                 var content = "";
                 if (allBookmarksContent && allBookmarksContent.size > 0) {
