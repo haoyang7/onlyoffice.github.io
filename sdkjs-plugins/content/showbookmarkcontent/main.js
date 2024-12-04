@@ -17,7 +17,7 @@
             showLoading();
             // 官方提供的回调函数，所有操作文档的 API 都可以在这里面使用
             me.callCommand(function () {
-                var allBookmarksContent = {}; // 使用普通对象替换 Map
+                var allBookmarksContent = {};
                 try {
                     var oDocument = Api.GetDocument();
                     if (oDocument) {
@@ -30,7 +30,7 @@
 
                                 // 如果范围有效，则获取书签内容
                                 if (oRange) {
-                                    allBookmarksContent[bookmarkName] = oRange.GetText(); // 使用对象的方式存储键值对
+                                    allBookmarksContent[bookmarkName] = oRange.GetText();
                                 } else {
                                     allBookmarksContent[bookmarkName] = ""; // 设置为空字符串
                                 }
@@ -46,12 +46,11 @@
                 }
 
                 // 转换为 JSON 字符串返回
-                var ret = JSON.stringify(allBookmarksContent);
-                return ret;
+                return JSON.stringify(allBookmarksContent);
             }, false, true, function (res) {
                 hideLoading();
 
-                // 解析返回的 JSON 字符串为普通对象
+                // 解析返回的 JSON 字符串
                 var allBookmarksContent = JSON.parse(res);
 
                 var content = "";
